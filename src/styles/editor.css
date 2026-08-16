@@ -288,6 +288,15 @@
   outline: none;
 }
 
+/*
+ * The editor clips what overflows it, so a word with nowhere to break — an
+ * address, a run of characters — would otherwise be typed straight out of
+ * sight. `anywhere` breaks one only when leaving it whole would overflow.
+ */
+.ve-content {
+  overflow-wrap: anywhere;
+}
+
 .ve-content > :first-child {
   margin-top: 0;
 }
