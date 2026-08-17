@@ -31,12 +31,12 @@
   "keywords": ["react", "rich-text-editor", "tiptap", "shadcn", "wysiwyg", "typescript"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/variofy/rich-editor.git"
+    "url": "https://github.com/variofyapp/variofy-rich-editor.git"
   },
   "bugs": {
-    "url": "https://github.com/variofy/rich-editor/issues"
+    "url": "https://github.com/variofyapp/variofy-rich-editor/issues"
   },
-  "homepage": "https://github.com/variofy/rich-editor#readme",
+  "homepage": "https://github.com/variofyapp/variofy-rich-editor#readme",
   "publishConfig": {
     "access": "public"
   },

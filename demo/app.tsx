@@ -38,7 +38,7 @@ export function App() {
           <span className="demo-version">v0.1.0</span>
           <a
             className="demo-icon-link"
-            href="https://github.com/variofy/variofy-rich-editor"
+            href="https://github.com/variofyapp/variofy-rich-editor"
             aria-label="GitHub"
           >
             <GitFork size={18} />
