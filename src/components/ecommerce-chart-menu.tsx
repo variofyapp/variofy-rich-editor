@@ -19,7 +19,6 @@ export interface EcommerceChartMenuProps {
 
 interface EcommerceChartTemplate {
   label: string;
-  description: string;
   icon: LucideIcon;
   rows: string[][];
 }
@@ -27,7 +26,6 @@ interface EcommerceChartTemplate {
 const templates: EcommerceChartTemplate[] = [
   {
     label: "Size chart",
-    description: "Apparel sizes and body measurements",
     icon: Ruler,
     rows: [
       ["Size", "Chest", "Waist", "Hip"],
@@ -39,7 +37,6 @@ const templates: EcommerceChartTemplate[] = [
   },
   {
     label: "Conversion chart",
-    description: "US, EU, UK and metric size conversion",
     icon: Scale,
     rows: [
       ["US", "EU", "UK", "CM"],
@@ -52,7 +49,6 @@ const templates: EcommerceChartTemplate[] = [
   },
   {
     label: "Product comparison",
-    description: "Compare products feature by feature",
     icon: TableProperties,
     rows: [
       ["Feature", "Product A", "Product B", "Product C"],
@@ -88,12 +84,16 @@ function insertTemplate(editor: Editor, template: EcommerceChartTemplate) {
 }
 
 export function EcommerceChartMenu({ editor }: EcommerceChartMenuProps) {
-  const disabled = editor.isActive("table");
+  const disabled = !editor.schema.nodes.table || editor.isActive("table");
 
   return (
     <DropdownMenu.Root>
       <Tooltip
-        content={disabled ? "Move outside the current table first" : "Insert e-commerce chart"}
+        content={
+          disabled
+            ? "E-commerce charts need table support and must be inserted outside a table"
+            : "Insert e-commerce chart"
+        }
       >
         <DropdownMenu.Trigger asChild disabled={disabled}>
           <Button
@@ -113,24 +113,24 @@ export function EcommerceChartMenu({ editor }: EcommerceChartMenuProps) {
         <DropdownMenu.Content
           align="start"
           sideOffset={6}
-          className="ve-dropdown ve-dropdown--commerce-chart"
+          className="ve-dropdown"
         >
           <DropdownMenu.Label className="ve-dropdown__label">
             E-commerce charts
           </DropdownMenu.Label>
-          {templates.map(({ label, description, icon: Icon, ...template }) => (
-            <DropdownMenu.Item
-              key={label}
-              className="ve-dropdown__item ve-commerce-chart__item"
-              onSelect={() => insertTemplate(editor, { label, description, icon: Icon, ...template })}
-            >
-              <Icon size={17} />
-              <span className="ve-commerce-chart__copy">
-                <strong>{label}</strong>
-                <small>{description}</small>
-              </span>
-            </DropdownMenu.Item>
-          ))}
+          {templates.map((template) => {
+            const Icon = template.icon;
+            return (
+              <DropdownMenu.Item
+                key={template.label}
+                className="ve-dropdown__item"
+                onSelect={() => insertTemplate(editor, template)}
+              >
+                <Icon size={17} />
+                {template.label}
+              </DropdownMenu.Item>
+            );
+          })}
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
