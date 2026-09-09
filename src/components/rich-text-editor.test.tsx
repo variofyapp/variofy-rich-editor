@@ -1,4 +1,6 @@
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { mergeAttributes } from "@tiptap/core";
+import Link from "@tiptap/extension-link";
 import { createRef } from "react";
 
 import {
@@ -21,6 +23,31 @@ describe("RichTextEditor", () => {
 
     await waitFor(() => expect(ref.current?.getEditor()).toBeTruthy());
     expect(ref.current?.getEditor()?.getText()).toBe("Ref content");
+  });
+
+  it("does not render inherited attributes merged by custom extensions", async () => {
+    // GHSA-cp6q-959q-f8rh: JSON can carry an own __proto__ key. Merging
+    // attributes in a host's extension must not turn it into DOM attributes.
+    const attributes = JSON.parse(
+      '{"__proto__":{"data-inherited-marker":"untrusted"},"class":"safe-link"}',
+    );
+    const customLink = Link.extend({
+      renderHTML({ HTMLAttributes }) {
+        return ["a", mergeAttributes(HTMLAttributes, attributes), 0];
+      },
+    });
+
+    render(
+      <RichTextEditor
+        link={false}
+        extensions={[customLink]}
+        defaultValue='<p><a href="https://example.com">Safe link</a></p>'
+      />,
+    );
+
+    const link = await screen.findByRole("link", { name: "Safe link" });
+    expect(link.classList.contains("safe-link")).toBe(true);
+    expect(link.hasAttribute("data-inherited-marker")).toBe(false);
   });
 
   it("hides editing controls in read-only mode", async () => {

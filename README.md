@@ -157,10 +157,14 @@ npm install
 npm run dev
 ```
 
+The built-in Tiptap packages are pinned to the same version because their peer
+dependencies must agree. Update them together and refresh `package-lock.json`.
+
 Before publishing:
 
 ```bash
 npm run check
+npm audit --omit=dev
 npm pack --dry-run
 npm login
 npm publish
