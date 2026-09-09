@@ -1,0 +1,34 @@
+/*
+ * Interaction-specific fallbacks and table resize alignment.
+ *
+ * Keep the browser's text selection visibly distinct even when it does not
+ * support color-mix(), and keep the CSS cell minimum in sync with Tiptap's
+ * default table resize cellMinWidth (25px). A larger CSS-only minimum makes
+ * the table jump as the resize plugin starts calculating column widths.
+ */
+.ve-content::selection,
+.ve-content *::selection {
+  background-color: rgb(59 130 246 / 0.28);
+  background-color: color-mix(in oklab, var(--ve-ring) 28%, transparent);
+  color: inherit;
+}
+
+.ve-content::-moz-selection,
+.ve-content *::-moz-selection {
+  background-color: rgb(59 130 246 / 0.28);
+  background-color: color-mix(in oklab, var(--ve-ring) 28%, transparent);
+  color: inherit;
+}
+
+.ve-content th,
+.ve-content td {
+  min-width: 25px;
+}
+
+.ve-content .column-resize-handle {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 0;
+}
