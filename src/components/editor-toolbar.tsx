@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { Fragment, type ReactNode } from "react";
 
+import { EcommerceChartMenu } from "./ecommerce-chart-menu";
 import { Button } from "./ui/button";
 import { ToolbarButton } from "./toolbar-button";
 import { TableMenu } from "./table-menu";
@@ -44,6 +45,7 @@ export const TOOLBAR_TOOLS = [
   "orderedList",
   "blockquote",
   "table",
+  "ecommerceChart",
   "link",
   "unlink",
   "clearFormatting",
@@ -221,6 +223,7 @@ export function EditorToolbar({
         />
       )),
       control("table", () => <TableMenu editor={editor} />),
+      control("ecommerceChart", () => <EcommerceChartMenu editor={editor} />),
     ],
     [
       control("link", () => (
