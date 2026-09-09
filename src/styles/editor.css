@@ -490,7 +490,7 @@
 .ve-content th,
 .ve-content td {
   position: relative;
-  min-width: 6rem;
+  min-width: 25px;
   padding: 0.55rem 0.7rem;
   border: 1px solid var(--ve-border);
   vertical-align: top;
@@ -510,6 +510,16 @@
 .ve-content th > :last-child,
 .ve-content td > :last-child {
   margin-bottom: 0;
+}
+
+.ve-content th > p,
+.ve-content td > p {
+  margin-block: 0;
+}
+
+.ve-content th > p + p,
+.ve-content td > p + p {
+  margin-top: 0.625em;
 }
 
 .ve-content .selectedCell::after {
@@ -545,8 +555,10 @@
   pointer-events: none;
 }
 
-.ve-content ::selection {
+.ve-content::selection,
+.ve-content *::selection {
   background: color-mix(in oklab, var(--ve-ring) 20%, transparent);
+  color: inherit;
 }
 
 .ve-footer {

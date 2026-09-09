@@ -1,5 +1,4 @@
 import "./styles/editor.css";
-import "./styles/editor-interaction-fixes.css";
 
 // Re-exported because every callback here hands one back, and a host that only
 // depends on this package has nowhere else to name the type from.
