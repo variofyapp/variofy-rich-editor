@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import type { ComponentType, MouseEvent } from "react";
 
 import { cn } from "../lib/utils";
 import { Button } from "./ui/button";
@@ -19,6 +19,14 @@ export function ToolbarButton({
   disabled = false,
   onClick,
 }: ToolbarButtonProps) {
+  const keepEditorFocused = (event: MouseEvent<HTMLButtonElement>) => {
+    // A toolbar button would normally take DOM focus on mousedown. ProseMirror
+    // keeps its logical selection, so formatting still works, but the browser
+    // stops painting the native text-selection highlight. Preventing the focus
+    // transfer keeps both the visual selection and the editor selection intact.
+    event.preventDefault();
+  };
+
   return (
     <Tooltip content={label}>
       <Button
@@ -28,6 +36,7 @@ export function ToolbarButton({
         aria-pressed={active}
         disabled={disabled}
         className={cn(active && "ve-button--active")}
+        onMouseDown={keepEditorFocused}
         onClick={onClick}
       >
         <Icon size={17} strokeWidth={2} />
@@ -35,4 +44,3 @@ export function ToolbarButton({
     </Tooltip>
   );
 }
-
