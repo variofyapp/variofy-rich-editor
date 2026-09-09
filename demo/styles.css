@@ -55,7 +55,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .demo-features p { margin: 0; color: #69756c; font-size: 14px; line-height: 1.65; }
 
 .demo-playground .ve-editor {
-  --ve-ring: 145 42% 34%;
+  --ve-ring: hsl(145 42% 34%);
   --ve-radius: 0.7rem;
 }
 
