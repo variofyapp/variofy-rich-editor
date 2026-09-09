@@ -48,7 +48,7 @@ describe("EcommerceChartMenu", () => {
 
     await waitFor(() => expect(screen.getByRole("textbox")).toBeTruthy());
     expect(
-      screen.getByRole("button", { name: "Insert e-commerce chart" }),
-    ).toBeDisabled();
+      screen.getByRole("button", { name: "Insert e-commerce chart" }).hasAttribute("disabled"),
+    ).toBe(true);
   });
 });
